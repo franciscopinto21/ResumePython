@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block content %}
+<div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+  <!-- Profile Section -->
+  <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row">
+    <div class="w-full md:w-1/4">
+      <img
+        src="/static/me.jpg"
+        alt="{{ profile.name }}"
+        class="rounded-lg w-full object-cover"
+      />
+    </div>
+    <div class="w-full md:w-3/4 mt-4 md:mt-0 md:pl-6">
+      <h1 class="text-2xl font-bold text-gray-800">{{ profile.name }}</h1>
+      <p class="text-lg text-gray-600">{{ profile.title }}</p>
+      <p class="mt-4 text-gray-700">{{ profile.description }}</p>
+    </div>
+  </div>
+
+  <!-- Work Experience Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Work Experience</h2>
+    <ul class="space-y-4">
+      {% for work in work_experience %}
+      <li>
+        <h3 class="font-semibold text-gray-700">
+          {{ work.title }} at {{ work.company }} - {{ work.start_date }} to {{
+          work.end_date }}
+        </h3>
+        <p class="text-sm text-gray-600">{{ work.location }}</p>
+        <p>{{ work.description }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Certifications Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Certifications</h2>
+    <ul class="space-y-2">
+      {% for cert in certifications %}
+      <li>
+        <span class="font-semibold text-gray-700">{{ cert.name }}</span> - {{
+        cert.provider }} ({{ cert.completion_date }})
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Education Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Education</h2>
+    <ul class="space-y-2">
+      {% for edu in education %}
+      <li>
+        <span class="font-semibold text-gray-700">{{ edu.institution }}</span> -
+        ({{ edu.start_date }} to {{ edu.end_date }})
+      </li>
+      <p>{{ edu.degree }}</p>
+      <p>{{ edu.description }}</p>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Languages Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Languages</h2>
+    <table class="table-auto w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border-b p-2">Language</th>
+          <th class="border-b p-2">Proficiency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lang in languages %}
+        <tr>
+          <td class="border-b p-2">{{ lang.language }}</td>
+          <td class="border-b p-2">{{ lang.proficiency }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Skills Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Skills</h2>
+    <div>
+      {% for category, grouped_skills in skills | groupby('category') %}
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700">{{ category }}</h3>
+        <ul class="list-disc pl-6 mt-2">
+          {% for skill in grouped_skills %}
+          <li class="text-gray-600">{{ skill.skill_name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

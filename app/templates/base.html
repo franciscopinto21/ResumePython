@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <!-- Linkando o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='favicon.png') }}"
+      type="image/png"
+    />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- Header com Nav bar fixa -->
+    <header
+      class="bg-gray-800 text-white fixed w-full top-0 left-0 z-10 shadow-md"
+    >
+      <nav class="flex items-center justify-between p-4">
+        <h1 class="text-xl font-semibold">Francisco Pinto Resume</h1>
+
+        <!-- Menu desktop -->
+        <div class="hidden md:flex space-x-4">
+          <a href="{{ url_for('main.home') }}" class="hover:underline">Home</a>
+          <a href="{{ url_for('main.resume') }}" class="hover:underline"
+            >Resume</a
+          >
+          <a href="{{ url_for('main.projects') }}" class="hover:underline"
+            >Projects</a
+          >
+        </div>
+
+        <!-- Menu mobile (Hamburguer) -->
+        <div class="md:hidden flex items-center">
+          <button id="menu-toggle" class="text-white focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Menu mobile dropdown -->
+    <div id="mobile-menu" class="md:hidden bg-gray-800 text-white hidden">
+      <a href="{{ url_for('main.home') }}" class="block p-4 hover:bg-blue-800"
+        >Home</a
+      >
+      <a href="{{ url_for('main.resume') }}" class="block p-4 hover:bg-blue-800"
+        >Resume</a
+      >
+      <a
+        href="{{ url_for('main.projects') }}"
+        class="block p-4 hover:bg-blue-800"
+        >Projects</a
+      >
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 mt-20 p-4">{% block content %}{% endblock %}</main>
+
+    <!-- Footer fixado no fundo -->
+    <footer class="bg-gray-800 text-white p-4 mt-auto">
+      <p class="text-center">&copy; 2024 Francisco Pinto</p>
+    </footer>
+
+    <!-- Script para alternar o menu no mobile -->
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>
